@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Finger Shift</title>
+<link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<div class="app">
+
+  <!-- ============ HOME 화면 ============ -->
+  <section id="screen-home" class="screen">
+    <div class="panel panel--home">
+      <p class="eyebrow">KEYBOARD REFLEX GAME</p>
+      <h1 class="title">Finger Shift</h1>
+      <p class="subtitle">30초 동안 목표 키 패턴을 정확히 맞춰보세요</p>
+
+      <button id="btn-start" class="btn btn--primary btn--large">START</button>
+
+      <div class="field">
+        <label for="select-difficulty">Difficulty</label>
+        <select id="select-difficulty">
+          <option value="1">Level 1</option>
+          <option value="2">Level 2</option>
+          <option value="3">Level 3</option>
+          <option value="4">Level 4</option>
+        </select>
+      </div>
+
+      <div class="btn-row">
+        <button id="btn-goto-settings" class="btn">KEY SETTINGS</button>
+        <button id="btn-goto-ranking" class="btn">RANKING</button>
+      </div>
+
+      <label class="checkbox-row">
+        <input type="checkbox" id="checkbox-reduce-motion" />
+        <span>Reduce Motion (효과 끄기)</span>
+      </label>
+    </div>
+  </section>
+
+  <!-- ============ SETTINGS 화면 ============ -->
+  <section id="screen-settings" class="screen">
+    <div class="panel">
+      <h2 class="panel-title">KEY SETTINGS</h2>
+
+      <div class="key-setting-list">
+        <div class="key-setting-row">
+          <span class="key-setting-label">KEY 1</span>
+          <button class="btn key-btn" id="key-btn-0" data-key-index="0">A</button>
+        </div>
+        <div class="key-setting-row">
+          <span class="key-setting-label">KEY 2</span>
+          <button class="btn key-btn" id="key-btn-1" data-key-index="1">S</button>
+        </div>
+        <div class="key-setting-row">
+          <span class="key-setting-label">KEY 3</span>
+          <button class="btn key-btn" id="key-btn-2" data-key-index="2">D</button>
+        </div>
+        <div class="key-setting-row">
+          <span class="key-setting-label">KEY 4</span>
+          <button class="btn key-btn" id="key-btn-3" data-key-index="3">F</button>
+        </div>
+      </div>
+
+      <p id="settings-message" class="settings-message"></p>
+
+      <div class="btn-row">
+        <button id="btn-reset-keys" class="btn">RESET</button>
+        <button id="btn-save-keys" class="btn btn--primary">SAVE</button>
+        <button id="btn-settings-back" class="btn">BACK</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ RANKING 화면 ============ -->
+  <section id="screen-ranking" class="screen">
+    <div class="panel">
+      <h2 class="panel-title">RANKING</h2>
+
+      <div class="btn-row" id="ranking-level-tabs">
+        <button class="btn ranking-tab" data-level="1">LEVEL 1</button>
+        <button class="btn ranking-tab" data-level="2">LEVEL 2</button>
+        <button class="btn ranking-tab" data-level="3">LEVEL 3</button>
+        <button class="btn ranking-tab" data-level="4">LEVEL 4</button>
+      </div>
+
+      <ol id="ranking-list" class="ranking-list"></ol>
+
+      <div class="btn-row">
+        <button id="btn-ranking-back" class="btn">BACK</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ READY 화면 ============ -->
+  <section id="screen-ready" class="screen">
+    <div class="panel panel--center">
+      <p class="ready-label">GET READY!</p>
+      <p id="ready-count" class="ready-count">3</p>
+    </div>
+  </section>
+
+  <!-- ============ PLAYING 화면 ============ -->
+  <section id="screen-playing" class="screen">
+    <div class="panel panel--game">
+
+      <div class="game-top-row">
+        <div class="stat-box">
+          <span class="stat-label">TIME</span>
+          <span id="stat-time" class="stat-value">30.0</span>
+        </div>
+        <div class="stat-box">
+          <span class="stat-label">SCORE</span>
+          <span id="stat-score" class="stat-value">0</span>
+        </div>
+        <button id="btn-pause" class="btn">PAUSE</button>
+      </div>
+
+      <div class="pattern-block">
+        <p class="pattern-block-label">TARGET</p>
+        <div id="target-keys" class="key-display"></div>
+      </div>
+
+      <div class="pattern-block">
+        <p class="pattern-block-label">YOUR INPUT</p>
+        <div id="input-keys" class="key-display"></div>
+      </div>
+
+      <p id="match-effect" class="match-effect"></p>
+    </div>
+  </section>
+
+  <!-- ============ PAUSED 화면 ============ -->
+  <section id="screen-paused" class="screen">
+    <div class="panel panel--center">
+      <h2 class="panel-title">PAUSED</h2>
+      <div class="paused-stats">
+        <div class="stat-box">
+          <span class="stat-label">TIME</span>
+          <span id="paused-time" class="stat-value">18.4</span>
+        </div>
+        <div class="stat-box">
+          <span class="stat-label">SCORE</span>
+          <span id="paused-score" class="stat-value">12</span>
+        </div>
+      </div>
+      <div class="btn-row">
+        <button id="btn-resume" class="btn btn--primary">RESUME</button>
+        <button id="btn-paused-home" class="btn">HOME</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ RESULT 화면 ============ -->
+  <section id="screen-result" class="screen">
+    <div class="panel panel--center">
+      <h2 class="panel-title">TIME UP!</h2>
+      <p class="result-label">YOUR SCORE</p>
+      <p id="result-score" class="result-score">0</p>
+      <p id="result-level" class="result-sub">LEVEL 1</p>
+      <p id="result-rank" class="result-sub">RANK #-</p>
+      <div class="btn-row">
+        <button id="btn-play-again" class="btn btn--primary">PLAY AGAIN</button>
+        <button id="btn-result-home" class="btn">HOME</button>
+      </div>
+    </div>
+  </section>
+
+</div>
+
+<script src="js/storage.js"></script>
+<script src="js/state.js"></script>
+<script src="js/patterns.js"></script>
+<script src="js/ranking.js"></script>
+<script src="js/timer.js"></script>
+<script src="js/input.js"></script>
+<script src="js/render.js"></script>
+<script src="js/main.js"></script>
+</body>
+</html>

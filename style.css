@@ -1,0 +1,442 @@
+/* ==========================================================
+   Finger Shift - style.css
+   단순하고 명확한 미니게임 UI를 목표로 합니다.
+   ========================================================== */
+
+:root {
+  --color-bg: #12141c;
+  --color-panel: #1c1f2b;
+  --color-panel-border: #2c3040;
+  --color-text: #eef0f5;
+  --color-text-dim: #9aa0b4;
+  --color-accent: #5b8def;
+  --color-accent-dim: #33456e;
+  --color-success: #4fd67c;
+  --color-danger: #e0577a;
+  --color-key-off: #2a2e3d;
+  --color-key-on: #5b8def;
+
+  --radius: 10px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+}
+
+body {
+  background: var(--color-bg);
+  color: var(--color-text);
+  font-family: "Segoe UI", "Apple SD Gothic Neo", "Malgun Gothic", sans-serif;
+  overflow-x: hidden;
+}
+
+.app {
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+}
+
+/* ---------- 화면 전환 ---------- */
+/* 각 .screen 은 기본적으로 숨겨져 있고, 활성 상태(.screen--active)일 때만 보입니다. */
+.screen {
+  display: none;
+  width: 100%;
+  justify-content: center;
+}
+
+.screen--active {
+  display: flex;
+}
+
+/* ---------- 패널 공통 ---------- */
+.panel {
+  background: var(--color-panel);
+  border: 1px solid var(--color-panel-border);
+  border-radius: var(--radius);
+  padding: 32px;
+  width: 100%;
+  max-width: 480px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.panel--center {
+  align-items: center;
+  text-align: center;
+}
+
+.panel--game {
+  max-width: 560px;
+}
+
+.panel-title {
+  margin: 0;
+  font-size: 22px;
+  letter-spacing: 0.02em;
+}
+
+/* ---------- HOME ---------- */
+.panel--home {
+  align-items: stretch;
+  text-align: center;
+}
+
+.eyebrow {
+  margin: 0;
+  font-size: 12px;
+  letter-spacing: 0.15em;
+  color: var(--color-text-dim);
+}
+
+.title {
+  margin: 0;
+  font-size: 40px;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+}
+
+.subtitle {
+  margin: 0 0 8px;
+  color: var(--color-text-dim);
+  font-size: 14px;
+}
+
+.field {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  background: var(--color-bg);
+  border: 1px solid var(--color-panel-border);
+  border-radius: var(--radius);
+  padding: 10px 14px;
+}
+
+.field label {
+  color: var(--color-text-dim);
+  font-size: 14px;
+}
+
+.field select {
+  background: var(--color-panel);
+  color: var(--color-text);
+  border: 1px solid var(--color-panel-border);
+  border-radius: 6px;
+  padding: 6px 10px;
+  font-size: 14px;
+}
+
+.checkbox-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  justify-content: center;
+  font-size: 13px;
+  color: var(--color-text-dim);
+  cursor: pointer;
+}
+
+/* ---------- 버튼 ---------- */
+.btn {
+  appearance: none;
+  border: 1px solid var(--color-panel-border);
+  background: var(--color-bg);
+  color: var(--color-text);
+  border-radius: var(--radius);
+  padding: 12px 16px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: transform 0.05s ease, background 0.15s ease;
+  flex: 1;
+}
+
+.btn:hover {
+  background: var(--color-panel-border);
+}
+
+.btn:active {
+  transform: scale(0.97);
+}
+
+.btn--primary {
+  background: var(--color-accent);
+  border-color: var(--color-accent);
+  color: #0c1220;
+}
+
+.btn--primary:hover {
+  background: #6f9cf2;
+}
+
+.btn--large {
+  padding: 16px;
+  font-size: 18px;
+}
+
+.btn-row {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+/* ---------- SETTINGS ---------- */
+.key-setting-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.key-setting-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.key-setting-label {
+  color: var(--color-text-dim);
+  font-size: 14px;
+  width: 70px;
+}
+
+.key-btn {
+  flex: 1;
+  font-size: 16px;
+  letter-spacing: 0.1em;
+}
+
+.key-btn.is-listening {
+  background: var(--color-accent-dim);
+  border-color: var(--color-accent);
+  color: var(--color-accent);
+}
+
+.settings-message {
+  min-height: 20px;
+  margin: 0;
+  font-size: 13px;
+  color: var(--color-danger);
+}
+
+.settings-message.is-success {
+  color: var(--color-success);
+}
+
+/* ---------- RANKING ---------- */
+.ranking-tab.is-active {
+  background: var(--color-accent);
+  border-color: var(--color-accent);
+  color: #0c1220;
+}
+
+.ranking-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  min-height: 120px;
+}
+
+.ranking-list li {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: var(--color-bg);
+  border: 1px solid var(--color-panel-border);
+  border-radius: 8px;
+  padding: 10px 14px;
+  font-size: 14px;
+}
+
+.ranking-list .rank-medal {
+  width: 28px;
+  font-size: 16px;
+}
+
+.ranking-empty {
+  text-align: center;
+  color: var(--color-text-dim);
+  font-size: 14px;
+  padding: 24px 0;
+}
+
+/* ---------- READY ---------- */
+.ready-label {
+  margin: 0;
+  font-size: 20px;
+  letter-spacing: 0.08em;
+  color: var(--color-text-dim);
+}
+
+.ready-count {
+  margin: 0;
+  font-size: 96px;
+  font-weight: 800;
+  color: var(--color-accent);
+  line-height: 1;
+}
+
+/* ---------- PLAYING ---------- */
+.game-top-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.stat-box {
+  background: var(--color-bg);
+  border: 1px solid var(--color-panel-border);
+  border-radius: var(--radius);
+  padding: 10px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  flex: 1;
+}
+
+.stat-label {
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  color: var(--color-text-dim);
+}
+
+.stat-value {
+  font-size: 26px;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+
+.pattern-block {
+  background: var(--color-bg);
+  border: 1px solid var(--color-panel-border);
+  border-radius: var(--radius);
+  padding: 16px;
+}
+
+.pattern-block-label {
+  margin: 0 0 12px;
+  font-size: 12px;
+  letter-spacing: 0.1em;
+  color: var(--color-text-dim);
+}
+
+.key-display {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+}
+
+.key-chip {
+  width: 64px;
+  height: 64px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 22px;
+  font-weight: 700;
+  background: var(--color-key-off);
+  border: 2px solid var(--color-panel-border);
+  color: var(--color-text-dim);
+  transition: background 0.08s ease, border-color 0.08s ease, color 0.08s ease;
+}
+
+.key-chip.is-active {
+  background: var(--color-key-on);
+  border-color: var(--color-key-on);
+  color: #0c1220;
+}
+
+.match-effect {
+  min-height: 24px;
+  margin: 0;
+  text-align: center;
+  font-weight: 700;
+  color: var(--color-success);
+  font-size: 16px;
+  opacity: 0;
+}
+
+.match-effect.is-visible {
+  opacity: 1;
+  animation: fade-out-effect 0.6s ease forwards;
+}
+
+.match-effect.is-static {
+  opacity: 1;
+  animation: none;
+}
+
+@keyframes fade-out-effect {
+  0% { opacity: 1; transform: translateY(0); }
+  100% { opacity: 0; transform: translateY(-6px); }
+}
+
+/* ---------- PAUSED ---------- */
+.paused-stats {
+  display: flex;
+  gap: 12px;
+  width: 100%;
+}
+
+/* ---------- RESULT ---------- */
+.result-label {
+  margin: 0;
+  color: var(--color-text-dim);
+  font-size: 13px;
+  letter-spacing: 0.1em;
+}
+
+.result-score {
+  margin: 0;
+  font-size: 64px;
+  font-weight: 800;
+  color: var(--color-accent);
+  line-height: 1;
+}
+
+.result-sub {
+  margin: 0;
+  color: var(--color-text-dim);
+  font-size: 14px;
+}
+
+/* ---------- 반응형 (1366x768 / 1920x1080 대응) ---------- */
+@media (max-width: 480px) {
+  .panel {
+    padding: 20px;
+  }
+
+  .title {
+    font-size: 32px;
+  }
+
+  .key-chip {
+    width: 48px;
+    height: 48px;
+    font-size: 18px;
+  }
+
+  .result-score {
+    font-size: 48px;
+  }
+}
+
+@media (min-width: 1600px) {
+  .app {
+    padding: 48px;
+  }
+}
