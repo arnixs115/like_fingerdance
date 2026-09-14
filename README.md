@@ -11,22 +11,22 @@
 
 ## 파일 구조
 
-모든 파일이 한 폴더 안에 나란히 있어야 합니다 (하위 폴더 없음).
-`index.html`이 `<script src="state.js">`처럼 같은 폴더 기준 상대 경로로
-스크립트를 불러오기 때문에, 폴더 구조가 달라지면(js/ 하위 폴더 등) 화면이
-아예 뜨지 않고 검은 화면만 보입니다.
+`js/` 폴더 안에 있는 자바스크립트 파일들은 반드시 그 안에 그대로 있어야 합니다.
+`index.html`이 `<script src="js/state.js">`처럼 `js/` 하위 경로로 스크립트를
+불러오기 때문에, `js` 폴더를 없애고 파일을 바깥으로 꺼내면 화면이 아예 뜨지 않고
+검은 화면만 보입니다. 즉, 아래 구조를 그대로 유지한 채로 옮겨주세요.
 
 ```
-index.html          모든 화면(HOME/SETTINGS/RANKING/READY/PLAYING/PAUSED/RESULT) 마크업
-style.css           전체 스타일 (반응형 포함)
-storage.js           LocalStorage 읽기/쓰기 (Key Settings, Difficulty, Ranking, Reduce Motion)
-state.js              전역 게임 상태(gameState) 정의 및 화면 전환(setScreen)
-patterns.js           난이도별 랜덤 키 패턴 생성 (직전 패턴 중복 방지 포함)
-ranking.js             난이도별 TOP 10 랭킹 계산/저장
-timer.js               READY 3초 카운트다운 + PLAYING 30초 타이머
-input.js                키보드 입력 처리(keydown/keyup), 설정 화면 키 리매핑, 창 포커스 이탈 처리
-render.js               gameState를 DOM에 반영하는 렌더링 함수 모음
-main.js                 앱 초기화, 버튼 이벤트 연결, 게임 흐름(시작/재개/일시정지/종료) 제어
+index.html                 모든 화면(HOME/SETTINGS/RANKING/READY/PLAYING/PAUSED/RESULT) 마크업
+style.css                  전체 스타일 (반응형 포함)
+js/storage.js               LocalStorage 읽기/쓰기 (Key Settings, Difficulty, Ranking, Reduce Motion)
+js/state.js                  전역 게임 상태(gameState) 정의 및 화면 전환(setScreen)
+js/patterns.js               난이도별 랜덤 키 패턴 생성 (직전 패턴 중복 방지 포함)
+js/ranking.js                 난이도별 TOP 10 랭킹 계산/저장
+js/timer.js                   READY 3초 카운트다운 + PLAYING 30초 타이머
+js/input.js                    키보드 입력 처리(keydown/keyup), 설정 화면 키 리매핑, 창 포커스 이탈 처리
+js/render.js                   gameState를 DOM에 반영하는 렌더링 함수 모음
+js/main.js                     앱 초기화, 버튼 이벤트 연결, 게임 흐름(시작/재개/일시정지/종료) 제어
 ```
 
 ## 게임 모드
