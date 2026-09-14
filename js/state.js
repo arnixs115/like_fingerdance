@@ -26,6 +26,8 @@ const gameState = {
   keyLabels: DEFAULT_KEY_LABELS.slice(), // 예: ["A","S","D","F"]
   difficulty: 1,
   reduceMotion: false,
+  mode: DEFAULT_MODE,           // "RECORD"(기록 모드) | "GOAL"(목표 모드)
+  targetScore: DEFAULT_TARGET_SCORE, // 목표 모드에서 성공 기준이 되는 점수
 
   // 진행 중인 게임 데이터
   score: 0,
@@ -45,6 +47,8 @@ const gameState = {
 
   // RESULT 화면에 표시할 값
   resultRank: null,
+  resultOutcome: null,     // "RECORDED"(기록 모드) | "SUCCESS" | "FAIL" (목표 모드)
+  goalSaveDecision: null,  // 목표 모드 RESULT에서 사용자가 고른 값: null | "SAVED" | "PASSED"
 
   // 랭킹 데이터 (LocalStorage와 동기화됨)
   rankings: { 1: [], 2: [], 3: [], 4: [] },
@@ -61,6 +65,8 @@ function initStateFromStorage() {
 
   gameState.difficulty = loadDifficulty();
   gameState.reduceMotion = loadReduceMotion();
+  gameState.mode = loadMode();
+  gameState.targetScore = loadTargetScore();
   gameState.rankings = loadRankings();
 }
 

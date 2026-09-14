@@ -10,10 +10,16 @@ const STORAGE_KEYS = {
   DIFFICULTY: "fingerShift_difficulty",
   RANKINGS: "fingerShift_rankings",
   REDUCE_MOTION: "fingerShift_reduceMotion",
+  MODE: "fingerShift_mode",
+  TARGET_SCORE: "fingerShift_targetScore",
 };
 
 const DEFAULT_KEYS = ["KeyA", "KeyS", "KeyD", "KeyF"];
 const DEFAULT_KEY_LABELS = ["A", "S", "D", "F"];
+const DEFAULT_MODE = "RECORD"; // "RECORD"(기록 모드) | "GOAL"(목표 모드)
+const DEFAULT_TARGET_SCORE = 10;
+const MIN_TARGET_SCORE = 1;
+const MAX_TARGET_SCORE = 99;
 
 /**
  * 저장된 값을 읽어옵니다. 값이 없거나 파싱에 실패하면 fallback을 반환합니다.
@@ -76,6 +82,30 @@ function loadReduceMotion() {
 
 function saveReduceMotion(value) {
   storageSet(STORAGE_KEYS.REDUCE_MOTION, value);
+}
+
+/* ---------- Mode (기록 모드 / 목표 모드) ---------- */
+function loadMode() {
+  const saved = storageGet(STORAGE_KEYS.MODE, DEFAULT_MODE);
+  return saved === "GOAL" ? "GOAL" : "RECORD";
+}
+
+function saveMode(mode) {
+  storageSet(STORAGE_KEYS.MODE, mode === "GOAL" ? "GOAL" : "RECORD");
+}
+
+/* ---------- Target Score (목표 모드 전용) ---------- */
+function loadTargetScore() {
+  const saved = Number(storageGet(STORAGE_KEYS.TARGET_SCORE, DEFAULT_TARGET_SCORE));
+  if (Number.isFinite(saved) && saved >= MIN_TARGET_SCORE && saved <= MAX_TARGET_SCORE) {
+    return Math.floor(saved);
+  }
+  return DEFAULT_TARGET_SCORE;
+}
+
+function saveTargetScore(value) {
+  const clamped = Math.min(MAX_TARGET_SCORE, Math.max(MIN_TARGET_SCORE, Math.floor(Number(value) || DEFAULT_TARGET_SCORE)));
+  storageSet(STORAGE_KEYS.TARGET_SCORE, clamped);
 }
 
 /* ---------- Rankings ---------- */

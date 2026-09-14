@@ -51,6 +51,12 @@ function renderScreen() {
 function renderHome() {
   document.getElementById("select-difficulty").value = String(gameState.difficulty);
   document.getElementById("checkbox-reduce-motion").checked = gameState.reduceMotion;
+
+  document.getElementById("select-mode").value = gameState.mode;
+  document.getElementById("input-target-score").value = String(gameState.targetScore);
+
+  const targetScoreField = document.getElementById("target-score-field");
+  targetScoreField.style.display = gameState.mode === "GOAL" ? "" : "none";
 }
 
 /* ---------- SETTINGS ---------- */
@@ -175,9 +181,38 @@ function renderPaused() {
 
 /* ---------- RESULT ---------- */
 function renderResult() {
+  const titleEl = document.getElementById("result-title");
+  const rankEl = document.getElementById("result-rank");
+  const goalInfoEl = document.getElementById("result-goal-info");
+  const saveRowEl = document.getElementById("result-save-row");
+  const saveStatusEl = document.getElementById("result-save-status");
+
   document.getElementById("result-score").textContent = String(gameState.score);
   document.getElementById("result-level").textContent = `LEVEL ${gameState.difficulty}`;
-  document.getElementById("result-rank").textContent = gameState.resultRank
-    ? `RANK #${gameState.resultRank}`
-    : "RANK -";
+
+  if (gameState.mode === "GOAL") {
+    titleEl.textContent = gameState.resultOutcome === "SUCCESS" ? "GOAL SUCCESS!" : "GOAL FAILED";
+    goalInfoEl.textContent = `목표 ${gameState.targetScore} / 달성 ${gameState.score}`;
+    goalInfoEl.style.display = "";
+    rankEl.style.display = "none";
+
+    if (gameState.goalSaveDecision === null) {
+      saveRowEl.style.display = "";
+      saveStatusEl.style.display = "none";
+    } else {
+      saveRowEl.style.display = "none";
+      saveStatusEl.style.display = "";
+      saveStatusEl.textContent =
+        gameState.goalSaveDecision === "SAVED"
+          ? `랭킹에 저장했습니다 (RANK #${gameState.resultRank})`
+          : "이번 기록은 저장하지 않았습니다.";
+    }
+  } else {
+    titleEl.textContent = "TIME UP!";
+    goalInfoEl.style.display = "none";
+    saveRowEl.style.display = "none";
+    saveStatusEl.style.display = "none";
+    rankEl.style.display = "";
+    rankEl.textContent = gameState.resultRank ? `RANK #${gameState.resultRank}` : "RANK -";
+  }
 }

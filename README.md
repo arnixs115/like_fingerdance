@@ -11,18 +11,34 @@
 
 ## 파일 구조
 
+모든 파일이 한 폴더 안에 나란히 있어야 합니다 (하위 폴더 없음).
+`index.html`이 `<script src="state.js">`처럼 같은 폴더 기준 상대 경로로
+스크립트를 불러오기 때문에, 폴더 구조가 달라지면(js/ 하위 폴더 등) 화면이
+아예 뜨지 않고 검은 화면만 보입니다.
+
 ```
 index.html          모든 화면(HOME/SETTINGS/RANKING/READY/PLAYING/PAUSED/RESULT) 마크업
 style.css           전체 스타일 (반응형 포함)
-js/storage.js        LocalStorage 읽기/쓰기 (Key Settings, Difficulty, Ranking, Reduce Motion)
-js/state.js           전역 게임 상태(gameState) 정의 및 화면 전환(setScreen)
-js/patterns.js        난이도별 랜덤 키 패턴 생성 (직전 패턴 중복 방지 포함)
-js/ranking.js          난이도별 TOP 10 랭킹 계산/저장
-js/timer.js            READY 3초 카운트다운 + PLAYING 30초 타이머
-js/input.js             키보드 입력 처리(keydown/keyup), 설정 화면 키 리매핑, 창 포커스 이탈 처리
-js/render.js            gameState를 DOM에 반영하는 렌더링 함수 모음
-js/main.js              앱 초기화, 버튼 이벤트 연결, 게임 흐름(시작/재개/일시정지/종료) 제어
+storage.js           LocalStorage 읽기/쓰기 (Key Settings, Difficulty, Ranking, Reduce Motion)
+state.js              전역 게임 상태(gameState) 정의 및 화면 전환(setScreen)
+patterns.js           난이도별 랜덤 키 패턴 생성 (직전 패턴 중복 방지 포함)
+ranking.js             난이도별 TOP 10 랭킹 계산/저장
+timer.js               READY 3초 카운트다운 + PLAYING 30초 타이머
+input.js                키보드 입력 처리(keydown/keyup), 설정 화면 키 리매핑, 창 포커스 이탈 처리
+render.js               gameState를 DOM에 반영하는 렌더링 함수 모음
+main.js                 앱 초기화, 버튼 이벤트 연결, 게임 흐름(시작/재개/일시정지/종료) 제어
 ```
+
+## 게임 모드
+
+HOME 화면에서 **기록 모드**와 **목표 모드** 중 하나를 선택할 수 있습니다 (LocalStorage에 저장되어 유지됩니다).
+
+- **기록 모드(RECORD)**: 기존과 동일합니다. 30초가 지나면 자동으로 해당 난이도 랭킹에 점수가 저장됩니다.
+- **목표 모드(GOAL)**: HOME 화면에서 목표 점수(1~99)를 정합니다. 30초 안에 목표 점수에 도달하면
+  **성공**(시간이 남아 있어도 즉시 종료), 도달하지 못하고 시간이 다 되면 **실패**로 RESULT 화면에 표시됩니다.
+  성공/실패 모두 자동 저장되지 않고, RESULT 화면에서 **저장 / 패스** 버튼으로 이번 판 점수를
+  랭킹에 넣을지 직접 선택합니다. 저장을 선택하면 **기록 모드와 같은 난이도별 랭킹**에 합쳐집니다
+  (모드가 달라도 랭킹은 하나로 공유됩니다).
 
 ## 핵심 게임 로직
 

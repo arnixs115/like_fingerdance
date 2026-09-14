@@ -91,14 +91,20 @@ function onInputChanged() {
 
 function handlePatternSuccess() {
   gameState.score += 1;
+  renderPlayingStats();
+  showMatchEffect();
+
+  // 목표 모드에서 목표 점수에 도달하면 30초를 다 채우지 않고 바로 성공 처리합니다.
+  if (gameState.mode === "GOAL" && gameState.score >= gameState.targetScore) {
+    renderPlayingKeys();
+    finishGoalSuccessEarly();
+    return;
+  }
 
   const newPattern = generatePattern(gameState.difficulty, gameState.targetPattern);
   gameState.prevPattern = gameState.targetPattern;
   gameState.targetPattern = newPattern;
-
-  renderPlayingStats();
   renderPlayingKeys();
-  showMatchEffect();
 }
 
 function handleGameKeyDown(e) {

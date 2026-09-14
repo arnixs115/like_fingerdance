@@ -20,6 +20,19 @@
       <button id="btn-start" class="btn btn--primary btn--large">START</button>
 
       <div class="field">
+        <label for="select-mode">Mode</label>
+        <select id="select-mode">
+          <option value="RECORD">기록 모드</option>
+          <option value="GOAL">목표 모드</option>
+        </select>
+      </div>
+
+      <div class="field" id="target-score-field">
+        <label for="input-target-score">Target Score</label>
+        <input type="number" id="input-target-score" min="1" max="99" value="10" />
+      </div>
+
+      <div class="field">
         <label for="select-difficulty">Difficulty</label>
         <select id="select-difficulty">
           <option value="1">Level 1</option>
@@ -157,11 +170,19 @@
   <!-- ============ RESULT 화면 ============ -->
   <section id="screen-result" class="screen">
     <div class="panel panel--center">
-      <h2 class="panel-title">TIME UP!</h2>
+      <h2 id="result-title" class="panel-title">TIME UP!</h2>
       <p class="result-label">YOUR SCORE</p>
       <p id="result-score" class="result-score">0</p>
       <p id="result-level" class="result-sub">LEVEL 1</p>
+      <p id="result-goal-info" class="result-sub" style="display:none"></p>
       <p id="result-rank" class="result-sub">RANK #-</p>
+      <p id="result-save-status" class="result-sub" style="display:none"></p>
+
+      <div class="btn-row" id="result-save-row" style="display:none">
+        <button id="btn-save-record" class="btn btn--primary">저장</button>
+        <button id="btn-pass-record" class="btn">패스</button>
+      </div>
+
       <div class="btn-row">
         <button id="btn-play-again" class="btn btn--primary">PLAY AGAIN</button>
         <button id="btn-result-home" class="btn">HOME</button>
@@ -171,13 +192,13 @@
 
 </div>
 
-<script src="js/storage.js"></script>
-<script src="js/state.js"></script>
-<script src="js/patterns.js"></script>
-<script src="js/ranking.js"></script>
-<script src="js/timer.js"></script>
-<script src="js/input.js"></script>
-<script src="js/render.js"></script>
-<script src="js/main.js"></script>
+<script src="storage.js"></script>
+<script src="state.js"></script>
+<script src="patterns.js"></script>
+<script src="ranking.js"></script>
+<script src="timer.js"></script>
+<script src="input.js"></script>
+<script src="render.js"></script>
+<script src="main.js"></script>
 </body>
 </html>
